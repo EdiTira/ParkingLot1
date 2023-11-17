@@ -41,9 +41,9 @@ public class Car {
         this.parkingSpot = parkingSpot;
     }
 
+    @ManyToOne
     private User owner;
 
-    @ManyToOne
     public User getOwner() {
         return owner;
     }

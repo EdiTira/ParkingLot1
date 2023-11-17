@@ -51,9 +51,9 @@ public class User {
         this.password = password;
     }
 
+    @OneToMany(mappedBy = "owner")
     private Collection<Car> cars;
 
-    @OneToMany(mappedBy = "owner")
     public Collection<Car> getCars() {
         return cars;
     }
