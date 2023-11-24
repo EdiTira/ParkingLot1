@@ -18,6 +18,11 @@
                aria-current="page" href="${pageContext.request.contextPath}/Cars">Cars</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link
+               ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/")) eq '/users.jsp' ? ' active' : ''}"
+               aria-current="page" href="${pageContext.request.contextPath}/Users">Users</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
           <li class="nav-item">
