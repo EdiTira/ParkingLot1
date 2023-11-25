@@ -22,13 +22,7 @@ public class UserBean {
 
     public List<UserDto> copyUsersToDto(List<User> users){
         List<UserDto> usersDto = new ArrayList<>();
-        for(User user : users){
-            Long id = user.getId();
-            String username = user.getUsername();
-            String email = user.getEmail();
-            UserDto userDto = new UserDto(id, username, email);
-            usersDto.add(userDto);
-        }
+        users.forEach(user -> usersDto.add(new UserDto(user.getId(), user.getUsername(), user.getEmail())));
         return usersDto;
     }
 

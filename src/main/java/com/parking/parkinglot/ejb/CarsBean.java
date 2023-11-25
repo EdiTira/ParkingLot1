@@ -22,14 +22,11 @@ public class CarsBean {
 
     public List<CarDto> copyCarsToDto(List<Car> cars){
         List<CarDto> carsDto = new ArrayList<>();
-        for(Car car : cars){
-            Long id = car.getId();
-            String licensePlate = car.getLicensePlate();
-            String parkingSpot = car.getParkingSpot();
-            String ownerName = car.getOwner().getUsername();
-            CarDto carDto = new CarDto(id, licensePlate, parkingSpot, ownerName);
-            carsDto.add(carDto);
-        }
+        cars.forEach(car -> carsDto.add(new CarDto(
+                car.getId(),
+                car.getLicensePlate(),
+                car.getParkingSpot(),
+                car.getOwner().getUsername())));
         return carsDto;
     }
 
