@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
@@ -13,14 +15,18 @@
                aria-current="page" href="${pageContext.request.contextPath}/about.jsp">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link
-               ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/")) eq '/cars.jsp' ? ' active' : ''}"
-               aria-current="page" href="${pageContext.request.contextPath}/Cars">Cars</a>
+            <c:if test="${pageContext.request.isUserInRole('READ_CARS')}">
+              <a class="nav-link
+                   ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/")) eq '/cars.jsp' ? ' active' : ''}"
+                   aria-current="page" href="${pageContext.request.contextPath}/Cars">Cars</a>
+            </c:if>
           </li>
           <li class="nav-item">
-            <a class="nav-link
-               ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/")) eq '/users.jsp' ? ' active' : ''}"
-               aria-current="page" href="${pageContext.request.contextPath}/Users">Users</a>
+            <c:if test="${pageContext.request.isUserInRole('READ_USERS')}">
+              <a class="nav-link
+                 ${pageContext.request.requestURI.substring(pageContext.request.requestURI.lastIndexOf("/")) eq '/users.jsp' ? ' active' : ''}"
+                 aria-current="page" href="${pageContext.request.contextPath}/Users">Users</a>
+            </c:if>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -31,7 +37,14 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
+            <c:choose>
+              <c:when test="${pageContext.request.getRemoteUser() == null}">
+                <a class="nav-link" href="${pageContext.request.contextPath}/Login">Login</a>
+              </c:when>
+              <c:otherwise>
+                <a class="nav-link" href="${pageContext.request.contextPath}/Logout">Logout</a>
+              </c:otherwise>
+            </c:choose>
           </li>
         </ul>
       </div>
