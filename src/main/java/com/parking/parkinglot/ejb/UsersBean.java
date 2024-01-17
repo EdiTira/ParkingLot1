@@ -1,5 +1,6 @@
 package com.parking.parkinglot.ejb;
 
+import com.parking.parkinglot.common.EditUserDto;
 import com.parking.parkinglot.common.UserDto;;
 import com.parking.parkinglot.entities.User;
 import com.parking.parkinglot.entities.UserGroup;
@@ -25,6 +26,31 @@ public class UsersBean {
     @PersistenceContext
     EntityManager entityManager;
 
+
+    public EditUserDto findUserById(Long userId){
+        try {
+            LOG.info("findUserById");
+            User user = entityManager.find(User.class, userId);
+            return new EditUserDto(user.getId(), user.getUsername(), user.getEmail(), user.getPassword());
+        } catch (Exception ex){
+            throw new EJBException(ex);
+        }
+    }
+
+    public void updateUser(Long userId, String username, String email, String password, Collection<String> groups){
+        try {
+            LOG.info("updateUser");
+            User user = entityManager.find(User.class, userId);
+            user.setUsername(username);
+            user.setEmail(email);
+            if(password != null && !password.isEmpty()){
+                user.setPassword(passwordBean.convertToSha256(password));
+            }
+            assignGroupsToUser(username, groups);
+        } catch (Exception ex){
+            throw new EJBException(ex);
+        }
+    }
 
     public List<UserDto> copyUsersToDto(List<User> users){
         List<UserDto> usersDto = new ArrayList<>();

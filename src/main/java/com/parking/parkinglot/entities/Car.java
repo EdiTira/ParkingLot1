@@ -36,7 +36,7 @@ public class Car {
     @Basic
     private String parkingSpot;
 
-    @Size(min = 3, max=100)
+    @Size(min = 1, max=100)
     @Column(unique = true, nullable = false, length = 100)
     public String getParkingSpot() {
         return parkingSpot;
